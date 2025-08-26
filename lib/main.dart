@@ -1,5 +1,8 @@
+import 'package:bloc_akshith/features/home/bloc/home_bloc.dart';
+import 'package:bloc_akshith/features/home/bloc/home_event.dart';
 import 'package:bloc_akshith/features/home/ui/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 void main() {
@@ -11,11 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      home: Home(),
+      home:  BlocProvider(
+        create: (context) => HomeBloc()..add(const HomeEvent.started()),
+        child: const Home(),
+      ),
     );
   }
 }

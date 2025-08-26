@@ -1,17 +1,109 @@
+import 'package:bloc_akshith/features/cart/ui/cart.dart';
+import 'package:bloc_akshith/features/home/bloc/home_bloc.dart';
+import 'package:bloc_akshith/features/home/bloc/home_event.dart';
+import 'package:bloc_akshith/features/home/bloc/home_state.dart';
+import 'package:bloc_akshith/features/home/ui/product_tile_widget.dart';
+import 'package:bloc_akshith/features/wishlist/ui/wishlist.dart';
 import 'package:flutter/material.dart';
-
-class Home extends StatelessWidget {
+import 'package:flutter_bloc/flutter_bloc.dart';
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final homeBloc = HomeBloc();
+  List<dynamic> _cachedProducts = [];
+  
+  @override
+  void initState() {
+    homeBloc.add(const HomeEvent.started());
+    super.initState();
+  }
+  
+  int _getProductCount(HomeState state) {
+    if (state is HomeLoadedSuccessState) {
+      _cachedProducts = state.products;
+      return state.products.length;
+    }
+    return _cachedProducts.length;
+  }
+  
+  dynamic _getProductAtIndex(HomeState state, int index) {
+    if (state is HomeLoadedSuccessState) {
+      return state.products[index];
+    }
+    return _cachedProducts[index];
+  }
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Grocery App'),
-      ),
-      body: const Center(
-        child: Text('Welcome to the Grocery App!'),
-      ),
+    
+    return BlocConsumer<HomeBloc, HomeState>(
+      bloc: homeBloc,
+      listener: (context, state) {
+        if(state is HomeNavigateToWishlistPageActionState){
+          // Navigate to Wishlist Page
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const Wishlist()));
+          print("Navigating to Wishlist Page");
+        } else if(state is HomeNavigateToCartPageActionState){
+          // Navigate to Cart Page
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const Cart()));
+          print("Navigating to Cart Page");
+        }
+      },
+      buildWhen: (previous, current) => !(current is HomeNavigateToWishlistPageActionState || current is HomeNavigateToCartPageActionState),
+      builder: (context, state) {
+        if(state is HomeLoadingState){
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if(state is HomeLoadedSuccessState || state is HomeInitial || state is HomeNavigateToWishlistPageActionState || state is HomeNavigateToCartPageActionState) {
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.teal,
+              title: const Text('Grocery App'),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.favorite_border),
+                  onPressed: () {
+                    homeBloc.add(const HomeEvent.wishlistNavigateClicked());
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.shopping_bag_outlined),
+                  onPressed: () {
+                    homeBloc.add(const HomeEvent.cartNavigateClicked());
+                  },
+                ),
+              ],
+            ),
+            body: ListView.builder(
+              itemCount: _getProductCount(state),
+              itemBuilder: (context, index) {
+                final product = _getProductAtIndex(state, index);
+                return ProductTileWidget(product: product);
+              },
+            ),
+          );
+        } else if(state is HomeErrorState){
+          return const Scaffold(
+            body: Center(
+              child: Text('Something went wrong! Please try again later.'),
+            ),
+          );
+        }
+        // Default fallback UI
+        return const Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
 }
+
