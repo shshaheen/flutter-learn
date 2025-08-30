@@ -131,12 +131,12 @@ return cartNavigateClicked(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function()?  wishlistButtonClicked,TResult Function()?  cartButtonClicked,TResult Function()?  wishlistNavigateClicked,TResult Function()?  cartNavigateClicked,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( ProductDataModel product)?  wishlistButtonClicked,TResult Function( ProductDataModel product)?  cartButtonClicked,TResult Function()?  wishlistNavigateClicked,TResult Function()?  cartNavigateClicked,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _WishlistButtonClicked() when wishlistButtonClicked != null:
-return wishlistButtonClicked();case _CartButtonClicked() when cartButtonClicked != null:
-return cartButtonClicked();case _WishlistNavigateClicked() when wishlistNavigateClicked != null:
+return wishlistButtonClicked(_that.product);case _CartButtonClicked() when cartButtonClicked != null:
+return cartButtonClicked(_that.product);case _WishlistNavigateClicked() when wishlistNavigateClicked != null:
 return wishlistNavigateClicked();case _CartNavigateClicked() when cartNavigateClicked != null:
 return cartNavigateClicked();case _:
   return orElse();
@@ -156,12 +156,12 @@ return cartNavigateClicked();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function()  wishlistButtonClicked,required TResult Function()  cartButtonClicked,required TResult Function()  wishlistNavigateClicked,required TResult Function()  cartNavigateClicked,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( ProductDataModel product)  wishlistButtonClicked,required TResult Function( ProductDataModel product)  cartButtonClicked,required TResult Function()  wishlistNavigateClicked,required TResult Function()  cartNavigateClicked,}) {final _that = this;
 switch (_that) {
 case _Started():
 return started();case _WishlistButtonClicked():
-return wishlistButtonClicked();case _CartButtonClicked():
-return cartButtonClicked();case _WishlistNavigateClicked():
+return wishlistButtonClicked(_that.product);case _CartButtonClicked():
+return cartButtonClicked(_that.product);case _WishlistNavigateClicked():
 return wishlistNavigateClicked();case _CartNavigateClicked():
 return cartNavigateClicked();case _:
   throw StateError('Unexpected subclass');
@@ -180,12 +180,12 @@ return cartNavigateClicked();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function()?  wishlistButtonClicked,TResult? Function()?  cartButtonClicked,TResult? Function()?  wishlistNavigateClicked,TResult? Function()?  cartNavigateClicked,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( ProductDataModel product)?  wishlistButtonClicked,TResult? Function( ProductDataModel product)?  cartButtonClicked,TResult? Function()?  wishlistNavigateClicked,TResult? Function()?  cartNavigateClicked,}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _WishlistButtonClicked() when wishlistButtonClicked != null:
-return wishlistButtonClicked();case _CartButtonClicked() when cartButtonClicked != null:
-return cartButtonClicked();case _WishlistNavigateClicked() when wishlistNavigateClicked != null:
+return wishlistButtonClicked(_that.product);case _CartButtonClicked() when cartButtonClicked != null:
+return cartButtonClicked(_that.product);case _WishlistNavigateClicked() when wishlistNavigateClicked != null:
 return wishlistNavigateClicked();case _CartNavigateClicked() when cartNavigateClicked != null:
 return cartNavigateClicked();case _:
   return null;
@@ -231,65 +231,133 @@ String toString() {
 
 
 class _WishlistButtonClicked implements HomeEvent {
-  const _WishlistButtonClicked();
+  const _WishlistButtonClicked({required this.product});
   
 
+ final  ProductDataModel product;
 
-
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WishlistButtonClickedCopyWith<_WishlistButtonClicked> get copyWith => __$WishlistButtonClickedCopyWithImpl<_WishlistButtonClicked>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WishlistButtonClicked);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WishlistButtonClicked&&(identical(other.product, product) || other.product == product));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,product);
 
 @override
 String toString() {
-  return 'HomeEvent.wishlistButtonClicked()';
+  return 'HomeEvent.wishlistButtonClicked(product: $product)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$WishlistButtonClickedCopyWith<$Res> implements $HomeEventCopyWith<$Res> {
+  factory _$WishlistButtonClickedCopyWith(_WishlistButtonClicked value, $Res Function(_WishlistButtonClicked) _then) = __$WishlistButtonClickedCopyWithImpl;
+@useResult
+$Res call({
+ ProductDataModel product
+});
 
 
+
+
+}
+/// @nodoc
+class __$WishlistButtonClickedCopyWithImpl<$Res>
+    implements _$WishlistButtonClickedCopyWith<$Res> {
+  __$WishlistButtonClickedCopyWithImpl(this._self, this._then);
+
+  final _WishlistButtonClicked _self;
+  final $Res Function(_WishlistButtonClicked) _then;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? product = null,}) {
+  return _then(_WishlistButtonClicked(
+product: null == product ? _self.product : product // ignore: cast_nullable_to_non_nullable
+as ProductDataModel,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
 class _CartButtonClicked implements HomeEvent {
-  const _CartButtonClicked();
+  const _CartButtonClicked({required this.product});
   
 
+ final  ProductDataModel product;
 
-
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CartButtonClickedCopyWith<_CartButtonClicked> get copyWith => __$CartButtonClickedCopyWithImpl<_CartButtonClicked>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CartButtonClicked);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CartButtonClicked&&(identical(other.product, product) || other.product == product));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,product);
 
 @override
 String toString() {
-  return 'HomeEvent.cartButtonClicked()';
+  return 'HomeEvent.cartButtonClicked(product: $product)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$CartButtonClickedCopyWith<$Res> implements $HomeEventCopyWith<$Res> {
+  factory _$CartButtonClickedCopyWith(_CartButtonClicked value, $Res Function(_CartButtonClicked) _then) = __$CartButtonClickedCopyWithImpl;
+@useResult
+$Res call({
+ ProductDataModel product
+});
 
 
+
+
+}
+/// @nodoc
+class __$CartButtonClickedCopyWithImpl<$Res>
+    implements _$CartButtonClickedCopyWith<$Res> {
+  __$CartButtonClickedCopyWithImpl(this._self, this._then);
+
+  final _CartButtonClicked _self;
+  final $Res Function(_CartButtonClicked) _then;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? product = null,}) {
+  return _then(_CartButtonClicked(
+product: null == product ? _self.product : product // ignore: cast_nullable_to_non_nullable
+as ProductDataModel,
+  ));
+}
+
+
+}
 
 /// @nodoc
 

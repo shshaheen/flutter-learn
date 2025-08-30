@@ -43,17 +43,36 @@ class _HomeState extends State<Home> {
     return BlocConsumer<HomeBloc, HomeState>(
       bloc: homeBloc,
       listener: (context, state) {
+          debugPrint("Status: $state");
         if(state is HomeNavigateToWishlistPageActionState){
           // Navigate to Wishlist Page
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Wishlist()));
+          Navigator.push(
+            context, 
+            MaterialPageRoute(
+              builder: (context) => const Wishlist()
+              )
+            );
           print("Navigating to Wishlist Page");
         } else if(state is HomeNavigateToCartPageActionState){
           // Navigate to Cart Page
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Cart()));
+          Navigator.push(
+            context, 
+            MaterialPageRoute(
+              builder: (context) => const Cart()
+              )
+            );
           print("Navigating to Cart Page");
+        }else if(state is HomeProductWishlistedActionState){
+          debugPrint("Product added to wishlist!");
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Product added to wishlist!')),
+          );
+        }else if(state is HomeProductCartActionState){
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Product added to cart!')),
+          );
         }
       },
-      buildWhen: (previous, current) => !(current is HomeNavigateToWishlistPageActionState || current is HomeNavigateToCartPageActionState),
       builder: (context, state) {
         if(state is HomeLoadingState){
           return const Scaffold(
@@ -61,7 +80,14 @@ class _HomeState extends State<Home> {
               child: CircularProgressIndicator(),
             ),
           );
-        } else if(state is HomeLoadedSuccessState || state is HomeInitial || state is HomeNavigateToWishlistPageActionState || state is HomeNavigateToCartPageActionState) {
+        }else if(state is HomeErrorState){
+          return const Scaffold(
+            body: Center(
+              child: Text('Something went wrong! Please try again later.'),
+            ),
+          );
+        } else 
+        {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.teal,
@@ -85,23 +111,11 @@ class _HomeState extends State<Home> {
               itemCount: _getProductCount(state),
               itemBuilder: (context, index) {
                 final product = _getProductAtIndex(state, index);
-                return ProductTileWidget(product: product);
+                return ProductTileWidget(product: product, homeBloc: homeBloc);
               },
             ),
           );
-        } else if(state is HomeErrorState){
-          return const Scaffold(
-            body: Center(
-              child: Text('Something went wrong! Please try again later.'),
-            ),
-          );
-        }
-        // Default fallback UI
-        return const Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
+        } 
       },
     );
   }

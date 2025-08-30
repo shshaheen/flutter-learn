@@ -1,15 +1,15 @@
-import 'package:bloc_akshith/features/home/bloc/home_bloc.dart';
-import 'package:bloc_akshith/features/home/bloc/home_event.dart';
+import 'package:bloc_akshith/features/cart/bloc/cart_event.dart';
 import 'package:bloc_akshith/features/home/models/home_product_data_model.dart';
+import 'package:bloc_akshith/features/cart/bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
-class ProductTileWidget extends StatelessWidget {
+class CartTileWidget extends StatelessWidget {
   final ProductDataModel product;
-  final HomeBloc homeBloc;
+  final CartBloc cartBloc;
   
-  const ProductTileWidget({
+  const CartTileWidget({
     super.key, 
     required this.product,
-    required this.homeBloc,
+    required this.cartBloc,
   });
 
   @override
@@ -50,18 +50,18 @@ class ProductTileWidget extends StatelessWidget {
                   IconButton(
                   icon: const Icon(Icons.favorite_border),
                   onPressed: () {
-                    // Get the HomeBloc from the context or use the provided one
-                    final bloc = homeBloc;
-                    bloc.add( HomeEvent.wishlistButtonClicked(product: product));
+                    // Get the CartBloc from the context or use the provided one
+                    // final bloc = cartBloc;
+                    // bloc.add( CartEvent.wishlistButtonClicked(product: product));
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.shopping_bag_outlined),
+                  icon: const Icon(Icons.shopping_bag),
                   onPressed: () {
                     debugPrint("Cart Button Clicked");
-                    // Get the HomeBloc from the context or use the provided one
-                    final bloc =homeBloc;
-                    bloc.add( HomeEvent.cartButtonClicked(product: product));
+                    // Get the CartBloc from the context or use the provided one
+                    final bloc = cartBloc;
+                    bloc.add( CartEvent.removeItem(product));
                   },
                 ),
                 ],)

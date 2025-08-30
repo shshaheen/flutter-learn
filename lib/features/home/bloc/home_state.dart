@@ -14,5 +14,7 @@ class HomeState with _$HomeState {
   const factory HomeState.navigateToWishlistPage() = HomeNavigateToWishlistPageActionState;
   const factory HomeState.navigateToCartPage() = HomeNavigateToCartPageActionState;
 
+  const factory HomeState.productWishlistedActionState() = HomeProductWishlistedActionState;
+  const factory HomeState.productCartActionState() = HomeProductCartActionState;
 }
 

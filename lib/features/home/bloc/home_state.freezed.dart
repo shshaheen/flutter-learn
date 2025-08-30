@@ -55,7 +55,7 @@ extension HomeStatePatterns on HomeState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( HomeInitial value)?  initial,TResult Function( HomeLoadingState value)?  loading,TResult Function( HomeLoadedSuccessState value)?  loadedSuccess,TResult Function( HomeErrorState value)?  error,TResult Function( HomeNavigateToWishlistPageActionState value)?  navigateToWishlistPage,TResult Function( HomeNavigateToCartPageActionState value)?  navigateToCartPage,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( HomeInitial value)?  initial,TResult Function( HomeLoadingState value)?  loading,TResult Function( HomeLoadedSuccessState value)?  loadedSuccess,TResult Function( HomeErrorState value)?  error,TResult Function( HomeNavigateToWishlistPageActionState value)?  navigateToWishlistPage,TResult Function( HomeNavigateToCartPageActionState value)?  navigateToCartPage,TResult Function( HomeProductWishlistedActionState value)?  productWishlistedActionState,TResult Function( HomeProductCartActionState value)?  productCartActionState,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case HomeInitial() when initial != null:
@@ -64,7 +64,9 @@ return loading(_that);case HomeLoadedSuccessState() when loadedSuccess != null:
 return loadedSuccess(_that);case HomeErrorState() when error != null:
 return error(_that);case HomeNavigateToWishlistPageActionState() when navigateToWishlistPage != null:
 return navigateToWishlistPage(_that);case HomeNavigateToCartPageActionState() when navigateToCartPage != null:
-return navigateToCartPage(_that);case _:
+return navigateToCartPage(_that);case HomeProductWishlistedActionState() when productWishlistedActionState != null:
+return productWishlistedActionState(_that);case HomeProductCartActionState() when productCartActionState != null:
+return productCartActionState(_that);case _:
   return orElse();
 
 }
@@ -82,7 +84,7 @@ return navigateToCartPage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( HomeInitial value)  initial,required TResult Function( HomeLoadingState value)  loading,required TResult Function( HomeLoadedSuccessState value)  loadedSuccess,required TResult Function( HomeErrorState value)  error,required TResult Function( HomeNavigateToWishlistPageActionState value)  navigateToWishlistPage,required TResult Function( HomeNavigateToCartPageActionState value)  navigateToCartPage,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( HomeInitial value)  initial,required TResult Function( HomeLoadingState value)  loading,required TResult Function( HomeLoadedSuccessState value)  loadedSuccess,required TResult Function( HomeErrorState value)  error,required TResult Function( HomeNavigateToWishlistPageActionState value)  navigateToWishlistPage,required TResult Function( HomeNavigateToCartPageActionState value)  navigateToCartPage,required TResult Function( HomeProductWishlistedActionState value)  productWishlistedActionState,required TResult Function( HomeProductCartActionState value)  productCartActionState,}){
 final _that = this;
 switch (_that) {
 case HomeInitial():
@@ -91,7 +93,9 @@ return loading(_that);case HomeLoadedSuccessState():
 return loadedSuccess(_that);case HomeErrorState():
 return error(_that);case HomeNavigateToWishlistPageActionState():
 return navigateToWishlistPage(_that);case HomeNavigateToCartPageActionState():
-return navigateToCartPage(_that);case _:
+return navigateToCartPage(_that);case HomeProductWishlistedActionState():
+return productWishlistedActionState(_that);case HomeProductCartActionState():
+return productCartActionState(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -108,7 +112,7 @@ return navigateToCartPage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( HomeInitial value)?  initial,TResult? Function( HomeLoadingState value)?  loading,TResult? Function( HomeLoadedSuccessState value)?  loadedSuccess,TResult? Function( HomeErrorState value)?  error,TResult? Function( HomeNavigateToWishlistPageActionState value)?  navigateToWishlistPage,TResult? Function( HomeNavigateToCartPageActionState value)?  navigateToCartPage,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( HomeInitial value)?  initial,TResult? Function( HomeLoadingState value)?  loading,TResult? Function( HomeLoadedSuccessState value)?  loadedSuccess,TResult? Function( HomeErrorState value)?  error,TResult? Function( HomeNavigateToWishlistPageActionState value)?  navigateToWishlistPage,TResult? Function( HomeNavigateToCartPageActionState value)?  navigateToCartPage,TResult? Function( HomeProductWishlistedActionState value)?  productWishlistedActionState,TResult? Function( HomeProductCartActionState value)?  productCartActionState,}){
 final _that = this;
 switch (_that) {
 case HomeInitial() when initial != null:
@@ -117,7 +121,9 @@ return loading(_that);case HomeLoadedSuccessState() when loadedSuccess != null:
 return loadedSuccess(_that);case HomeErrorState() when error != null:
 return error(_that);case HomeNavigateToWishlistPageActionState() when navigateToWishlistPage != null:
 return navigateToWishlistPage(_that);case HomeNavigateToCartPageActionState() when navigateToCartPage != null:
-return navigateToCartPage(_that);case _:
+return navigateToCartPage(_that);case HomeProductWishlistedActionState() when productWishlistedActionState != null:
+return productWishlistedActionState(_that);case HomeProductCartActionState() when productCartActionState != null:
+return productCartActionState(_that);case _:
   return null;
 
 }
@@ -134,7 +140,7 @@ return navigateToCartPage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<ProductDataModel> products)?  loadedSuccess,TResult Function()?  error,TResult Function()?  navigateToWishlistPage,TResult Function()?  navigateToCartPage,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<ProductDataModel> products)?  loadedSuccess,TResult Function()?  error,TResult Function()?  navigateToWishlistPage,TResult Function()?  navigateToCartPage,TResult Function()?  productWishlistedActionState,TResult Function()?  productCartActionState,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case HomeInitial() when initial != null:
 return initial();case HomeLoadingState() when loading != null:
@@ -142,7 +148,9 @@ return loading();case HomeLoadedSuccessState() when loadedSuccess != null:
 return loadedSuccess(_that.products);case HomeErrorState() when error != null:
 return error();case HomeNavigateToWishlistPageActionState() when navigateToWishlistPage != null:
 return navigateToWishlistPage();case HomeNavigateToCartPageActionState() when navigateToCartPage != null:
-return navigateToCartPage();case _:
+return navigateToCartPage();case HomeProductWishlistedActionState() when productWishlistedActionState != null:
+return productWishlistedActionState();case HomeProductCartActionState() when productCartActionState != null:
+return productCartActionState();case _:
   return orElse();
 
 }
@@ -160,7 +168,7 @@ return navigateToCartPage();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<ProductDataModel> products)  loadedSuccess,required TResult Function()  error,required TResult Function()  navigateToWishlistPage,required TResult Function()  navigateToCartPage,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<ProductDataModel> products)  loadedSuccess,required TResult Function()  error,required TResult Function()  navigateToWishlistPage,required TResult Function()  navigateToCartPage,required TResult Function()  productWishlistedActionState,required TResult Function()  productCartActionState,}) {final _that = this;
 switch (_that) {
 case HomeInitial():
 return initial();case HomeLoadingState():
@@ -168,7 +176,9 @@ return loading();case HomeLoadedSuccessState():
 return loadedSuccess(_that.products);case HomeErrorState():
 return error();case HomeNavigateToWishlistPageActionState():
 return navigateToWishlistPage();case HomeNavigateToCartPageActionState():
-return navigateToCartPage();case _:
+return navigateToCartPage();case HomeProductWishlistedActionState():
+return productWishlistedActionState();case HomeProductCartActionState():
+return productCartActionState();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -185,7 +195,7 @@ return navigateToCartPage();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<ProductDataModel> products)?  loadedSuccess,TResult? Function()?  error,TResult? Function()?  navigateToWishlistPage,TResult? Function()?  navigateToCartPage,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<ProductDataModel> products)?  loadedSuccess,TResult? Function()?  error,TResult? Function()?  navigateToWishlistPage,TResult? Function()?  navigateToCartPage,TResult? Function()?  productWishlistedActionState,TResult? Function()?  productCartActionState,}) {final _that = this;
 switch (_that) {
 case HomeInitial() when initial != null:
 return initial();case HomeLoadingState() when loading != null:
@@ -193,7 +203,9 @@ return loading();case HomeLoadedSuccessState() when loadedSuccess != null:
 return loadedSuccess(_that.products);case HomeErrorState() when error != null:
 return error();case HomeNavigateToWishlistPageActionState() when navigateToWishlistPage != null:
 return navigateToWishlistPage();case HomeNavigateToCartPageActionState() when navigateToCartPage != null:
-return navigateToCartPage();case _:
+return navigateToCartPage();case HomeProductWishlistedActionState() when productWishlistedActionState != null:
+return productWishlistedActionState();case HomeProductCartActionState() when productCartActionState != null:
+return productCartActionState();case _:
   return null;
 
 }
@@ -425,6 +437,70 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'HomeState.navigateToCartPage()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class HomeProductWishlistedActionState implements HomeState {
+  const HomeProductWishlistedActionState();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeProductWishlistedActionState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HomeState.productWishlistedActionState()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class HomeProductCartActionState implements HomeState {
+  const HomeProductCartActionState();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeProductCartActionState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HomeState.productCartActionState()';
 }
 
 
