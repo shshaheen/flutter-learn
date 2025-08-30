@@ -55,11 +55,12 @@ extension WishlistStatePatterns on WishlistState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _SuccessState value)?  successState,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case _:
+return initial(_that);case _SuccessState() when successState != null:
+return successState(_that);case _:
   return orElse();
 
 }
@@ -77,11 +78,12 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _SuccessState value)  successState,}){
 final _that = this;
 switch (_that) {
 case _Initial():
-return initial(_that);case _:
+return initial(_that);case _SuccessState():
+return successState(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -98,11 +100,12 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _SuccessState value)?  successState,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case _:
+return initial(_that);case _SuccessState() when successState != null:
+return successState(_that);case _:
   return null;
 
 }
@@ -119,10 +122,11 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( List<ProductDataModel> wishlistItems)?  successState,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _:
+return initial();case _SuccessState() when successState != null:
+return successState(_that.wishlistItems);case _:
   return orElse();
 
 }
@@ -140,10 +144,11 @@ return initial();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( List<ProductDataModel> wishlistItems)  successState,}) {final _that = this;
 switch (_that) {
 case _Initial():
-return initial();case _:
+return initial();case _SuccessState():
+return successState(_that.wishlistItems);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -160,10 +165,11 @@ return initial();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( List<ProductDataModel> wishlistItems)?  successState,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _:
+return initial();case _SuccessState() when successState != null:
+return successState(_that.wishlistItems);case _:
   return null;
 
 }
@@ -202,5 +208,77 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class _SuccessState implements WishlistState {
+  const _SuccessState({required final  List<ProductDataModel> wishlistItems}): _wishlistItems = wishlistItems;
+  
+
+ final  List<ProductDataModel> _wishlistItems;
+ List<ProductDataModel> get wishlistItems {
+  if (_wishlistItems is EqualUnmodifiableListView) return _wishlistItems;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_wishlistItems);
+}
+
+
+/// Create a copy of WishlistState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SuccessStateCopyWith<_SuccessState> get copyWith => __$SuccessStateCopyWithImpl<_SuccessState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SuccessState&&const DeepCollectionEquality().equals(other._wishlistItems, _wishlistItems));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_wishlistItems));
+
+@override
+String toString() {
+  return 'WishlistState.successState(wishlistItems: $wishlistItems)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SuccessStateCopyWith<$Res> implements $WishlistStateCopyWith<$Res> {
+  factory _$SuccessStateCopyWith(_SuccessState value, $Res Function(_SuccessState) _then) = __$SuccessStateCopyWithImpl;
+@useResult
+$Res call({
+ List<ProductDataModel> wishlistItems
+});
+
+
+
+
+}
+/// @nodoc
+class __$SuccessStateCopyWithImpl<$Res>
+    implements _$SuccessStateCopyWith<$Res> {
+  __$SuccessStateCopyWithImpl(this._self, this._then);
+
+  final _SuccessState _self;
+  final $Res Function(_SuccessState) _then;
+
+/// Create a copy of WishlistState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? wishlistItems = null,}) {
+  return _then(_SuccessState(
+wishlistItems: null == wishlistItems ? _self._wishlistItems : wishlistItems // ignore: cast_nullable_to_non_nullable
+as List<ProductDataModel>,
+  ));
+}
+
+
+}
 
 // dart format on

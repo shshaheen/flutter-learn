@@ -43,8 +43,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void _onWishlistClicked(HomeEvent event,Emitter<HomeState> emit) {
     event.maybeWhen(
       wishlistButtonClicked: (product) {
-        wishlistItems.add(product);
-        debugPrint("Wishlist Button Clicked for product: $wishlistItems");
+        if (!wishlistItems.any((item) => item.id == product.id)) {
+          wishlistItems.add(product);
+          debugPrint("Added to wishlist: ${product.name}");
+        } else {
+          debugPrint("Item already in wishlist: ${product.name}");
+        }
         emit(HomeState.productWishlistedActionState());
       },
       orElse: () {
